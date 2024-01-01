@@ -22,6 +22,12 @@ public class IOObject {
 	private File file;
 	private ObjectEx information;
 
+	public IOObject(File file, ObjectEx information) {
+		super();
+		this.file = file;
+		this.information = information;
+	}
+
 	public File getFile() {
 		return file;
 	}
@@ -49,25 +55,20 @@ public class IOObject {
 		return bufferedImage;
 	}
 	
-	public void writeObject(String message, String user) {
+	public void writeObject() {
 		try {
-			FileOutputStream fos = new FileOutputStream(this.file, true);
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			BufferedWriter bw = new BufferedWriter(osw);
+			FileOutputStream fos = new FileOutputStream(this.file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			LocalDateTime currentTime = LocalDateTime.now();
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+			if(!this.file.exists()) {
+				this.file.createNewFile();
+			}
 			
-			String timeStr = currentTime.format(dtf);
-			
-			bw.append(timeStr + " " + user + ": " + message);
-			bw.newLine();
-			
-			bw.flush();
-			bw.close();
+			oos.writeObject(this.information);
+			oos.flush();
+			oos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -76,11 +77,10 @@ public class IOObject {
 			FileInputStream fis = new FileInputStream(this.file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
-			System.out.println(((ObjectEx) ois.readObject()).toString());
+			System.out.println(((ObjectEx) ois.readObject()).getAge());
 			
 			ois.close();
 		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

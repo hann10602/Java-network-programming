@@ -1,11 +1,13 @@
 package io;
 
-public class ObjectEx {
+import java.io.Serializable;
+
+public class ObjectEx implements Serializable {
 	private String name;
 	private String pass;
-	private String age;
+	private Integer age;
 
-	public ObjectEx(String name, String pass, String age) {
+	public ObjectEx(String name, String pass, Integer age) {
 		super();
 		this.name = name;
 		this.pass = pass;
@@ -28,11 +30,16 @@ public class ObjectEx {
 		this.pass = pass;
 	}
 
-	public String getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "ObjectEx [name=" + name + ", pass=" + pass + ", age=" + age + "]";
 	}
 }
