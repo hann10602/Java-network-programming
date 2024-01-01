@@ -1,4 +1,4 @@
-package socket;
+package socketLocal;
 
 public class SocketMain {
 	public static void main(String[] args) {
