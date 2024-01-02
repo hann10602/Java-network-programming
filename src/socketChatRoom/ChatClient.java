@@ -25,7 +25,6 @@ public class ChatClient {
 				output.write(message.getBytes());
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
